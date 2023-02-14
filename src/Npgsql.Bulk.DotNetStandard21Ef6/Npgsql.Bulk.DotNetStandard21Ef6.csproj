@@ -1,42 +1,52 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFrameworks>net472;netstandard2.1;net6.0;net7.0</TargetFrameworks>
+        <AssemblyName>Npgsql.Bulk.EF6</AssemblyName>
+        <PackageId>NpgsqlBulkEF6</PackageId>
+        <AssemblyVersion>0.9.1</AssemblyVersion>
+        <Version>0.9.1</Version>
+        <Description>Npgsql.Bulk built for EF6 on all targets</Description>
+        <Summary>Npgsql.Bulk built for EF6 on all targets</Summary>
+        <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+        <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+    </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <PlatformTarget>x64</PlatformTarget>
-    <DefineConstants>TRACE</DefineConstants>
-  </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <PlatformTarget>x64</PlatformTarget>
+        <DefineConstants>TRACE</DefineConstants>
+    </PropertyGroup>
+    <ItemGroup Condition=" '$(TargetFramework)' == 'net472' ">
+        <Reference Include="System.Transactions"/>
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="..\Npgsql.Bulk\BulkMappingSourceAttribute.cs" Link="BulkMappingSourceAttribute.cs"/>
+        <Compile Include="..\Npgsql.Bulk\BulkOperationModification.cs" Link="BulkOperationModification.cs"/>
+        <Compile Include="..\Npgsql.Bulk\BulkOperationModifierAttribute.cs" Link="BulkOperationModifierAttribute.cs"/>
+        <Compile Include="..\Npgsql.Bulk\BulkQueryableExtension.cs" Link="BulkQueryableExtension.cs"/>
+        <Compile Include="..\Npgsql.Bulk\BulkSelectInterceptor.cs" Link="BulkSelectInterceptor.cs"/>
+        <Compile Include="..\Npgsql.Bulk\InsertConflictAction.cs" Link="InsertConflictAction.cs"/>
+        <Compile Include="..\Npgsql.Bulk\IRelationalHelper.cs" Link="IRelationalHelper.cs"/>
+        <Compile Include="..\Npgsql.Bulk\Model\ColumnInfo.cs" Link="Model\ColumnInfo.cs"/>
+        <Compile Include="..\Npgsql.Bulk\Model\EntityInfo.cs" Link="Model\EntityInfo.cs"/>
+        <Compile Include="..\Npgsql.Bulk\Model\InsertQueryParts.cs" Link="Model\InsertQueryParts.cs"/>
+        <Compile Include="..\Npgsql.Bulk\Model\MappingInfo.cs" Link="Model\MappingInfo.cs"/>
+        <Compile Include="..\Npgsql.Bulk\Model\TableLockLevel.cs" Link="Model\TableLockLevel.cs"/>
+        <Compile Include="..\Npgsql.Bulk\Model\UpdateQueryParts.cs" Link="Model\UpdateQueryParts.cs"/>
+        <Compile Include="..\Npgsql.Bulk\NpgsqlBulkCodeBuilder.cs" Link="NpgsqlBulkCodeBuilder.cs"/>
+        <Compile Include="..\Npgsql.Bulk\NpgsqlBulkUploader.cs" Link="NpgsqlBulkUploader.cs"/>
+        <Compile Include="..\Npgsql.Bulk\NpgsqlHelper.cs" Link="NpgsqlHelper.cs"/>
+        <Compile Include="..\Npgsql.Bulk\OperationContext.cs" Link="OperationContext.cs"/>
+        <Compile Include="..\Npgsql.Bulk\RelationalHelper.cs" Link="RelationalHelper.cs"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <Compile Include="..\Npgsql.Bulk\BulkMappingSourceAttribute.cs" Link="BulkMappingSourceAttribute.cs" />
-    <Compile Include="..\Npgsql.Bulk\BulkOperationModification.cs" Link="BulkOperationModification.cs" />
-    <Compile Include="..\Npgsql.Bulk\BulkOperationModifierAttribute.cs" Link="BulkOperationModifierAttribute.cs" />
-    <Compile Include="..\Npgsql.Bulk\BulkQueryableExtension.cs" Link="BulkQueryableExtension.cs" />
-    <Compile Include="..\Npgsql.Bulk\BulkSelectInterceptor.cs" Link="BulkSelectInterceptor.cs" />
-    <Compile Include="..\Npgsql.Bulk\InsertConflictAction.cs" Link="InsertConflictAction.cs" />
-    <Compile Include="..\Npgsql.Bulk\IRelationalHelper.cs" Link="IRelationalHelper.cs" />
-    <Compile Include="..\Npgsql.Bulk\Model\ColumnInfo.cs" Link="Model\ColumnInfo.cs" />
-    <Compile Include="..\Npgsql.Bulk\Model\EntityInfo.cs" Link="Model\EntityInfo.cs" />
-    <Compile Include="..\Npgsql.Bulk\Model\InsertQueryParts.cs" Link="Model\InsertQueryParts.cs" />
-    <Compile Include="..\Npgsql.Bulk\Model\MappingInfo.cs" Link="Model\MappingInfo.cs" />
-    <Compile Include="..\Npgsql.Bulk\Model\TableLockLevel.cs" Link="Model\TableLockLevel.cs" />
-    <Compile Include="..\Npgsql.Bulk\Model\UpdateQueryParts.cs" Link="Model\UpdateQueryParts.cs" />
-    <Compile Include="..\Npgsql.Bulk\NpgsqlBulkCodeBuilder.cs" Link="NpgsqlBulkCodeBuilder.cs" />
-    <Compile Include="..\Npgsql.Bulk\NpgsqlBulkUploader.cs" Link="NpgsqlBulkUploader.cs" />
-    <Compile Include="..\Npgsql.Bulk\NpgsqlHelper.cs" Link="NpgsqlHelper.cs" />
-    <Compile Include="..\Npgsql.Bulk\OperationContext.cs" Link="OperationContext.cs" />
-    <Compile Include="..\Npgsql.Bulk\RelationalHelper.cs" Link="RelationalHelper.cs" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="EntityFramework" Version="6.3.0"/>
+        <PackageReference Include="Npgsql" Version="4.1.0"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="EntityFramework" Version="6.3.0" />
-    <PackageReference Include="Npgsql" Version="4.1.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Model\" />
-  </ItemGroup>
+    <ItemGroup>
+        <Folder Include="Model\"/>
+    </ItemGroup>
 
 </Project>
